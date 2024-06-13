@@ -1,1 +1,1 @@
-# Financial-_management_system
+# Financial_management_system
