@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "jmdy2ANwbTIRpjyQ9Dj0DicVDQJVFdocLSUvRFFJPrw=",
+  "Source": "FMS_backend",
+  "BasePath": "_content/FMS_backend",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}
