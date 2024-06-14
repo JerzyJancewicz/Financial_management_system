@@ -12,4 +12,4 @@ namespace FMS_backend.Models.UserF
 
         public HashSet<Transaction> Transactions { get; set; } = new HashSet<Transaction>();
     }
-}
+} 
