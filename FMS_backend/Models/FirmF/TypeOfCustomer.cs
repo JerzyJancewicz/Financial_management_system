@@ -1,4 +1,4 @@
-﻿namespace FMS_backend.Models.Firm
+﻿namespace FMS_backend.Models.FirmF
 {
     public enum TypeOfCustomer
     {
