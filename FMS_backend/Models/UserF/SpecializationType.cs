@@ -3,6 +3,6 @@
     public enum SpecializationType
     {
         ACCOUNTANT,
-        FINANCIALSPECIALIST
+        FINANCIAL_SPECIALIST
     }
 }

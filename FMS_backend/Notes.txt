@@ -1,3 +1,4 @@
 TODO:
 Services:
 - Receipt (orderby) (1 - 1)
+- overlapping (zmienne dla danej roli)

@@ -1,10 +1,15 @@
-﻿using Microsoft.Extensions.Hosting;
+﻿using FMS_backend.Models.UserF;
+using Microsoft.Extensions.Hosting;
 
 namespace FMS_backend.Models.FinancialOperationF
 {
     public class FinancialPrediction : FinancialOperation
     {
+        public int Id { get; set; }
         public double Profit { get; set; }
+
+        public int FinancialPersonId { get; set; }
+        public FinancialPerson FinancialPerson { get; set; } = new FinancialPerson();
         public override void CountIncome(DateTime dateFrom, DateTime dateTo)
         {
             if (dateFrom > DateTo || dateTo < DateFrom)

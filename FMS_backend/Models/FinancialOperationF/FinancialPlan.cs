@@ -4,10 +4,12 @@ namespace FMS_backend.Models.FinancialOperationF
 {
     public class FinancialPlan : FinancialOperation
     {
+        public int Id { get; set; }
         public int RiskValue { get; set; }
         public double PotentialIncome { get; set; }
         public bool IsRealised { get; set; }
 
+        public int ChiefOfFinanceId { get; set; }
         public ChiefOfFinance ChiefOfFinance { get; set; } = new ChiefOfFinance();
         public override void CountIncome(DateTime dateFrom, DateTime dateTo)
         {

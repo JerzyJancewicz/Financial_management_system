@@ -1,23 +1,60 @@
 ﻿using FMS_backend.Models.BankOperationF;
 using FMS_backend.Models.FinancialOperationF;
 using FMS_backend.Models.UserF.Interfaces;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace FMS_backend.Models.UserF
 {
     public class FinancialPerson : User, IAccountant, IFinancialSpecialist
     {
-        public int NumberOfReports { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        public int NumberOfPredictions { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        public string Specialization { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        public string Rank { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        private string? _specialization = string.Empty;
+        private string? _rank = string.Empty;
+        private int _numberOfReports;
+        private int _numberOfPredictions;
+        public List<SpecializationType> FinancialPersonRoles { get; set; } = new List<SpecializationType>();
 
-        public HashSet<BankOperation> BankOperations { get; set; } = new HashSet<BankOperation>();
-        public HashSet<FinancialReport> FinancialReports { get; set; } = new HashSet<FinancialReport>();
-        public HashSet<FinancialPrediction> FinancialPredictions { get; set; } = new HashSet<FinancialPrediction>();
-
-        public FinancialPerson()
+        public string? Specialization
         {
-
+            get => _specialization;
+            set => _specialization = value ?? throw new ArgumentNullException();
         }
+
+        public string? Rank
+        {
+            get => _rank;
+            set => _rank = value ?? throw new ArgumentNullException();
+        }
+
+        public int NumberOfReports
+        {
+            get => _numberOfReports;
+            set
+            {
+                if (value < 0)
+                {
+                    throw new ArgumentOutOfRangeException(nameof(value));
+                }
+                _numberOfReports = value;
+            }
+        }
+
+        public int NumberOfPredictions
+        {
+            get => _numberOfPredictions;
+            set
+            {
+                if (value < 0)
+                {
+                    throw new ArgumentOutOfRangeException(nameof(value));
+                }
+                _numberOfPredictions = value;
+            }
+        }
+
+        public ICollection<BankOperation> BankOperations { get; set; } = new HashSet<BankOperation>();
+        public ICollection<FinancialReport> FinancialReports { get; set; } = new HashSet<FinancialReport>();
+        public ICollection<FinancialPrediction> FinancialPredictions { get; set; } = new HashSet<FinancialPrediction>();
     }
 }
