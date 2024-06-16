@@ -33,7 +33,6 @@ namespace FMS_backend.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    EmployeeId = table.Column<int>(type: "int", nullable: false),
                     Email = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
@@ -42,14 +41,27 @@ namespace FMS_backend.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Firms",
+                name: "Employees",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    Surname = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    Nickname = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Employees", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Firms",
+                columns: table => new
+                {
+                    NIP = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false, collation: "SQL_Latin1_General_CP1_CI_AS"),
                     Name = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     Address = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
-                    NIP = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
                     PhoneNumber = table.Column<string>(type: "nvarchar(12)", maxLength: 12, nullable: false),
                     Type = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     DateOfRegistration = table.Column<DateTime>(type: "datetime2", nullable: true),
@@ -59,7 +71,7 @@ namespace FMS_backend.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Firms", x => x.Id);
+                    table.PrimaryKey("PK_Firms", x => x.NIP);
                 });
 
             migrationBuilder.CreateTable(
@@ -115,41 +127,19 @@ namespace FMS_backend.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Employees",
+                name: "PhoneNumber",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    Surname = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    Nickname = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    Number = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     ContactDetailsId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Employees", x => x.Id);
+                    table.PrimaryKey("PK_PhoneNumber", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Employees_ContactDetails_ContactDetailsId",
-                        column: x => x.ContactDetailsId,
-                        principalTable: "ContactDetails",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "PhoneNumbers",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Number = table.Column<string>(type: "nvarchar(12)", maxLength: 12, nullable: false),
-                    ContactDetailsId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_PhoneNumbers", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_PhoneNumbers_ContactDetails_ContactDetailsId",
+                        name: "FK_PhoneNumber_ContactDetails_ContactDetailsId",
                         column: x => x.ContactDetailsId,
                         principalTable: "ContactDetails",
                         principalColumn: "Id",
@@ -218,16 +208,18 @@ namespace FMS_backend.Migrations
                 name: "Transaction",
                 columns: table => new
                 {
-                    BudgetId = table.Column<int>(type: "int", nullable: false),
-                    UserId = table.Column<int>(type: "int", nullable: false),
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     OperationDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Amount = table.Column<double>(type: "float", nullable: false),
-                    TransactionTypes = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    StatusTypes = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    TransactionType = table.Column<int>(type: "int", nullable: false),
+                    StatusType = table.Column<int>(type: "int", nullable: false),
+                    BudgetId = table.Column<int>(type: "int", nullable: false),
+                    UserId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Transaction", x => new { x.BudgetId, x.UserId });
+                    table.PrimaryKey("PK_Transaction", x => x.Id);
                     table.ForeignKey(
                         name: "FK_Transaction_Budget_BudgetId",
                         column: x => x.BudgetId,
@@ -366,7 +358,7 @@ namespace FMS_backend.Migrations
                     Id = table.Column<int>(type: "int", nullable: false),
                     Type = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     InvoiceId = table.Column<int>(type: "int", nullable: false),
-                    FirmId = table.Column<int>(type: "int", nullable: false),
+                    FirmId = table.Column<string>(type: "nvarchar(20)", nullable: false),
                     EmployeeId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
@@ -388,7 +380,7 @@ namespace FMS_backend.Migrations
                         name: "FK_Receipt_Firms_FirmId",
                         column: x => x.FirmId,
                         principalTable: "Firms",
-                        principalColumn: "Id",
+                        principalColumn: "NIP",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Receipt_Invoice_InvoiceId",
@@ -433,12 +425,6 @@ namespace FMS_backend.Migrations
                 column: "FinancialPersonId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Employees_ContactDetailsId",
-                table: "Employees",
-                column: "ContactDetailsId",
-                unique: true);
-
-            migrationBuilder.CreateIndex(
                 name: "IX_FinancialPlan_ChiefOfFinanceId",
                 table: "FinancialPlan",
                 column: "ChiefOfFinanceId");
@@ -454,14 +440,8 @@ namespace FMS_backend.Migrations
                 column: "FinancialPersonId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Firms_NIP",
-                table: "Firms",
-                column: "NIP",
-                unique: true);
-
-            migrationBuilder.CreateIndex(
-                name: "IX_PhoneNumbers_ContactDetailsId",
-                table: "PhoneNumbers",
+                name: "IX_PhoneNumber_ContactDetailsId",
+                table: "PhoneNumber",
                 column: "ContactDetailsId");
 
             migrationBuilder.CreateIndex(
@@ -483,6 +463,11 @@ namespace FMS_backend.Migrations
                 name: "IX_ReceiptTax_TaxesId",
                 table: "ReceiptTax",
                 column: "TaxesId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Transaction_BudgetId",
+                table: "Transaction",
+                column: "BudgetId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Transaction_UserId",
@@ -509,7 +494,7 @@ namespace FMS_backend.Migrations
                 name: "FinancialReport");
 
             migrationBuilder.DropTable(
-                name: "PhoneNumbers");
+                name: "PhoneNumber");
 
             migrationBuilder.DropTable(
                 name: "ReceiptTax");
@@ -519,6 +504,9 @@ namespace FMS_backend.Migrations
 
             migrationBuilder.DropTable(
                 name: "ChiefOfFinance");
+
+            migrationBuilder.DropTable(
+                name: "ContactDetails");
 
             migrationBuilder.DropTable(
                 name: "Receipt");
@@ -537,9 +525,6 @@ namespace FMS_backend.Migrations
 
             migrationBuilder.DropTable(
                 name: "Invoice");
-
-            migrationBuilder.DropTable(
-                name: "ContactDetails");
 
             migrationBuilder.DropTable(
                 name: "BankOperation");

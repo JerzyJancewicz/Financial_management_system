@@ -6,7 +6,7 @@
         public string Number { get; set; } = string.Empty;
 
         public int ContactDetailsId { get; set; }
-        public ContactDetails ContactDetails { get; set; } = new ContactDetails();
+        public ContactDetails ContactDetails { get; set; }
 
     }
 }

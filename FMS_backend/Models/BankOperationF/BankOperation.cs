@@ -12,7 +12,7 @@ namespace FMS_backend.Models.BankOperationF
         public string Description { get; set; } = string.Empty;
 
         public int FinancialPersonId { get; set; }
-        public FinancialPerson FinancialPerson { get; set; } = new FinancialPerson();
+        public FinancialPerson FinancialPerson { get; set; }
         public void CountGrossAmount() 
         {
             GrossAmount = 0;

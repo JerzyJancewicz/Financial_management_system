@@ -6,8 +6,6 @@ namespace FMS_backend.Models.FirmF
 {
     public class Firm : IClient, IDeliverer
     {
-        public int Id { get; set; }
-
         private string _name = string.Empty;
         private string _address = string.Empty;
         private string _nip = string.Empty;

@@ -30,7 +30,6 @@ namespace FMS_backend.Persistence
         public DbSet<Admin> Admins { get; set; }
         public DbSet<ChiefOfFinance> ChiefOfFinance { get; set; }
         public DbSet<Employee> Employees { get; set; }
-        public DbSet<PhoneNumber> PhoneNumbers { get; set; }
         public DbSet<ContactDetails> ContactDetails { get; set; }
 
         public DbSet<Transaction> Transactions { get; set; }
@@ -57,7 +56,7 @@ namespace FMS_backend.Persistence
 
             modelBuilder.Entity<Firm>(entity =>
             {
-                entity.HasKey(f => f.Id);
+                entity.HasKey(f => f.NIP);
 
                 entity.HasMany(f => f.Receipts)
                     .WithOne(r => r.Firm)
@@ -73,10 +72,9 @@ namespace FMS_backend.Persistence
 
                 entity.Property(f => f.NIP)
                     .IsRequired()
-                    .HasMaxLength(20);
-
-                entity.HasIndex(f => f.NIP)
-                    .IsUnique();
+                    .HasMaxLength(20)
+                    .ValueGeneratedNever()
+                    .UseCollation("SQL_Latin1_General_CP1_CI_AS");
 
                 entity.Property(f => f.PhoneNumber)
                     .IsRequired()
@@ -204,42 +202,7 @@ namespace FMS_backend.Persistence
                 entity.Property(e => e.Nickname)
                     .HasMaxLength(50)
                     .IsRequired();
-
-                entity.HasOne(e => e.ContactDetails)
-                    .WithOne(ct => ct.Employee)
-                    .HasForeignKey<ContactDetails>(cd => cd.EmployeeId)
-                    .IsRequired();
-            });
-
-            modelBuilder.Entity<PhoneNumber>(entity =>
-            {
-                entity.HasKey(e => e.Id);
-
-                entity.HasOne(pn => pn.ContactDetails)
-                    .WithMany(cd => cd.PhoneNumbers)
-                    .HasForeignKey(pn => pn.ContactDetailsId)
-                    .OnDelete(DeleteBehavior.Cascade)
-                    .IsRequired();
-
-                entity.Property(pn => pn.Number)
-                    .HasMaxLength(12)
-                    .IsRequired();
-            });
-
-            modelBuilder.Entity<ContactDetails>(entity =>
-            {
-            entity.HasKey(e => e.Id);
-
-            entity.HasMany(cd => cd.PhoneNumbers)
-                .WithOne(cn => cn.ContactDetails)
-                .HasForeignKey(cd => cd.ContactDetailsId)
-                .IsRequired();
-
-            entity.HasOne(ct => ct.Employee)
-                .WithOne(pn => pn.ContactDetails)
-                .HasForeignKey<Employee>(em => em.ContactDetailsId)
-                .IsRequired();
-            });
+            });            
         }
         private void FinancialOperationMb(ModelBuilder modelBuilder)
         {
@@ -377,15 +340,7 @@ namespace FMS_backend.Persistence
             modelBuilder.Entity<Transaction>(entity =>
             {
                 entity.ToTable("Transaction");
-                entity.HasKey(t => new { t.BudgetId, t.UserId });
-
-                entity.Property(t => t.BudgetId)
-                    .IsRequired()
-                    .Metadata.SetAfterSaveBehavior(PropertySaveBehavior.Throw);
-
-                entity.Property(t => t.UserId)
-                    .IsRequired()
-                    .Metadata.SetAfterSaveBehavior(PropertySaveBehavior.Throw);
+                entity.HasKey(t => t.Id);
 
                 entity.HasOne(t => t.Budget)
                     .WithMany(b => b.Transactions)
@@ -405,18 +360,10 @@ namespace FMS_backend.Persistence
                 entity.Property(t => t.Amount)
                     .IsRequired();
 
-                entity.Property(t => t.TransactionTypes)
-                    .HasConversion(
-                        v => string.Join(',', v),
-                        v => v.Split(',', StringSplitOptions.RemoveEmptyEntries)
-                            .Select(t => Enum.Parse<TransactionType>(t)).ToList())
+                entity.Property(t => t.TransactionType)
                     .IsRequired();
 
-                entity.Property(t => t.StatusTypes)
-                    .HasConversion(
-                        v => string.Join(',', v),
-                        v => v.Split(',', StringSplitOptions.RemoveEmptyEntries)
-                            .Select(s => Enum.Parse<StatusType>(s)).ToList())
+                entity.Property(t => t.StatusType)                   
                     .IsRequired();
             });
 

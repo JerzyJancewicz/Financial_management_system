@@ -196,11 +196,10 @@ namespace FMS_backend.Migrations
 
             modelBuilder.Entity("FMS_backend.Models.FirmF.Firm", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    b.Property<string>("NIP")
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)")
+                        .UseCollation("SQL_Latin1_General_CP1_CI_AS");
 
                     b.Property<string>("Address")
                         .IsRequired()
@@ -215,11 +214,6 @@ namespace FMS_backend.Migrations
 
                     b.Property<double?>("Discount")
                         .HasColumnType("float");
-
-                    b.Property<string>("NIP")
-                        .IsRequired()
-                        .HasMaxLength(20)
-                        .HasColumnType("nvarchar(20)");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -238,10 +232,7 @@ namespace FMS_backend.Migrations
                     b.Property<int>("TypeOfCustomer")
                         .HasColumnType("int");
 
-                    b.HasKey("Id");
-
-                    b.HasIndex("NIP")
-                        .IsUnique();
+                    b.HasKey("NIP");
 
                     b.ToTable("Firms");
 
@@ -307,27 +298,33 @@ namespace FMS_backend.Migrations
 
             modelBuilder.Entity("FMS_backend.Models.TransactionF.Transaction", b =>
                 {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<double>("Amount")
+                        .HasColumnType("float");
+
                     b.Property<int>("BudgetId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("OperationDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("StatusType")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TransactionType")
                         .HasColumnType("int");
 
                     b.Property<int>("UserId")
                         .HasColumnType("int");
 
-                    b.Property<double>("Amount")
-                        .HasColumnType("float");
+                    b.HasKey("Id");
 
-                    b.Property<DateTime>("OperationDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("StatusTypes")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("TransactionTypes")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("BudgetId", "UserId");
+                    b.HasIndex("BudgetId");
 
                     b.HasIndex("UserId");
 
@@ -346,9 +343,6 @@ namespace FMS_backend.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("EmployeeId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
                     b.ToTable("ContactDetails");
@@ -361,9 +355,6 @@ namespace FMS_backend.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("ContactDetailsId")
-                        .HasColumnType("int");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -382,9 +373,6 @@ namespace FMS_backend.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ContactDetailsId")
-                        .IsUnique();
-
                     b.ToTable("Employees");
                 });
 
@@ -401,14 +389,13 @@ namespace FMS_backend.Migrations
 
                     b.Property<string>("Number")
                         .IsRequired()
-                        .HasMaxLength(12)
-                        .HasColumnType("nvarchar(12)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("ContactDetailsId");
 
-                    b.ToTable("PhoneNumbers");
+                    b.ToTable("PhoneNumber");
                 });
 
             modelBuilder.Entity("FMS_backend.Models.UserF.User", b =>
@@ -490,8 +477,9 @@ namespace FMS_backend.Migrations
                     b.Property<int>("EmployeeId")
                         .HasColumnType("int");
 
-                    b.Property<int>("FirmId")
-                        .HasColumnType("int");
+                    b.Property<string>("FirmId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(20)");
 
                     b.Property<int>("InvoiceId")
                         .HasColumnType("int");
@@ -630,17 +618,6 @@ namespace FMS_backend.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("FMS_backend.Models.UserF.Employee", b =>
-                {
-                    b.HasOne("FMS_backend.Models.UserF.ContactDetails", "ContactDetails")
-                        .WithOne("Employee")
-                        .HasForeignKey("FMS_backend.Models.UserF.Employee", "ContactDetailsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("ContactDetails");
-                });
-
             modelBuilder.Entity("FMS_backend.Models.UserF.PhoneNumber", b =>
                 {
                     b.HasOne("FMS_backend.Models.UserF.ContactDetails", "ContactDetails")
@@ -750,9 +727,6 @@ namespace FMS_backend.Migrations
 
             modelBuilder.Entity("FMS_backend.Models.UserF.ContactDetails", b =>
                 {
-                    b.Navigation("Employee")
-                        .IsRequired();
-
                     b.Navigation("PhoneNumbers");
                 });
 

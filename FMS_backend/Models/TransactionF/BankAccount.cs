@@ -8,6 +8,6 @@
         public string AccountNumber { get; set; } = string.Empty;
 
         public int BudgetId { get; set; }
-        public Budget Budget { get; set; } = new Budget();
+        public Budget Budget { get; set; }
     }
 }

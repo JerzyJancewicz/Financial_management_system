@@ -8,14 +8,14 @@ namespace FMS_backend.Models.BankOperationF
         public Types Type { get; set; }
 
         public int InvoiceId { get; set; }
-        public Invoice Invoice { get; set; } = new Invoice();
+        public Invoice Invoice { get; set; }
 
-        public HashSet<Tax> Taxes { get; set; } = new HashSet<Tax>();
+        public HashSet<Tax> Taxes { get; set; }
 
-        public int FirmId { get; set; }
-        public Firm Firm { get; set; } = new Firm();
+        public string FirmId { get; set; } = string.Empty;
+        public Firm Firm { get; set; }
 
         public int EmployeeId { get; set; }
-        public Employee Employee { get; set; }= new Employee();
+        public Employee Employee { get; set; }
     }
 }

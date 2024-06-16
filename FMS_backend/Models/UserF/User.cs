@@ -12,6 +12,6 @@ namespace FMS_backend.Models.UserF
         public string Email { get; set; } = string.Empty;
         public string NickName { get; set; } = string.Empty;
 
-        public HashSet<Transaction> Transactions { get; set; } = new HashSet<Transaction>();
+        public HashSet<Transaction> Transactions { get; set; }
     }
 } 

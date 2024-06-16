@@ -17,39 +17,101 @@ namespace FMS_backend.Models.UserF
 
         public string? Specialization
         {
-            get => _specialization;
-            set => _specialization = value ?? throw new ArgumentNullException();
+            get 
+            {
+                if (FinancialPersonRoles.Contains(SpecializationType.ACCOUNTANT)) 
+                {
+                    return _specialization;
+                }
+                return null;
+            }
+            set 
+            {
+                if (FinancialPersonRoles.Contains(SpecializationType.ACCOUNTANT))
+                {
+                    _specialization = value;
+                }
+                else 
+                {
+                    _specialization = null;
+                }
+            }
         }
 
         public string? Rank
         {
-            get => _rank;
-            set => _rank = value ?? throw new ArgumentNullException();
+            get 
+            {
+                if (FinancialPersonRoles.Contains(SpecializationType.ACCOUNTANT))
+                {
+                    return _rank;
+                }
+                return null;
+            }
+            set
+            {
+                if (FinancialPersonRoles.Contains(SpecializationType.ACCOUNTANT))
+                {
+                    _rank = value;
+                }
+                else
+                {
+                    _rank = null;
+                }
+            }
         }
 
         public int NumberOfReports
         {
-            get => _numberOfReports;
+            get 
+            {
+                if (FinancialPersonRoles.Contains(SpecializationType.FINANCIAL_SPECIALIST))
+                {
+                    return _numberOfReports;
+                }
+                return 0;
+            } 
             set
             {
                 if (value < 0)
                 {
                     throw new ArgumentOutOfRangeException(nameof(value));
                 }
-                _numberOfReports = value;
+                if (FinancialPersonRoles.Contains(SpecializationType.FINANCIAL_SPECIALIST))
+                {
+                    _numberOfReports = value;
+                }
+                else 
+                {
+                    _numberOfReports = 0;
+                }
             }
         }
 
         public int NumberOfPredictions
         {
-            get => _numberOfPredictions;
+            get
+            {
+                if (FinancialPersonRoles.Contains(SpecializationType.FINANCIAL_SPECIALIST))
+                {
+                    return _numberOfPredictions;
+                }
+                return 0;
+            }
             set
             {
                 if (value < 0)
                 {
                     throw new ArgumentOutOfRangeException(nameof(value));
                 }
-                _numberOfPredictions = value;
+                if (FinancialPersonRoles.Contains(SpecializationType.FINANCIAL_SPECIALIST))
+                {
+                    _numberOfPredictions = value;
+                }
+                else
+                {
+                    _numberOfPredictions = 0;
+                }
             }
         }
 

@@ -7,6 +7,6 @@ namespace FMS_backend.Models.UserF
         public DateTime DateOfEmployment { get; set; }
         public string FinancialScore { get; set; } = string.Empty;
 
-        public HashSet<FinancialPlan> FinancialPlans { get; set; } = new HashSet<FinancialPlan>();
+        public HashSet<FinancialPlan> FinancialPlans { get; set; }
     }
 }

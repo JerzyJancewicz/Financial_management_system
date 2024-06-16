@@ -1,9 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "Igo4hSyxaycGYxHQmKliwImXwLe0KM4txoYVv+jMuu++u1RntvRtpU9pxXoH3b/JO0JeFX8WDYZatCtzK3eMpg==",
+  "dgSpecHash": "iG/FR61IDHbhiqPLwJQWbsk0HOEaffY5M8O/Xlrc0EJXqEX2hfkZO3Zw8QvfjDdO5ZYIm7hFCfmppuyQeJJTzw==",
   "success": true,
   "projectFilePath": "F:\\PROJEKTY\\WebApiProjects\\Financial_management_system\\FMS_backend\\FMS_backend.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\jance\\.nuget\\packages\\automapper\\13.0.1\\automapper.13.0.1.nupkg.sha512",
     "C:\\Users\\jance\\.nuget\\packages\\azure.core\\1.35.0\\azure.core.1.35.0.nupkg.sha512",
     "C:\\Users\\jance\\.nuget\\packages\\azure.identity\\1.10.3\\azure.identity.1.10.3.nupkg.sha512",
     "C:\\Users\\jance\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",

@@ -10,7 +10,7 @@ namespace FMS_backend.Models.FinancialOperationF
         public bool IsRealised { get; set; }
 
         public int ChiefOfFinanceId { get; set; }
-        public ChiefOfFinance ChiefOfFinance { get; set; } = new ChiefOfFinance();
+        public ChiefOfFinance ChiefOfFinance { get; set; }
         public override void CountIncome(DateTime dateFrom, DateTime dateTo)
         {
             if (dateFrom > DateTo || dateTo < DateFrom)

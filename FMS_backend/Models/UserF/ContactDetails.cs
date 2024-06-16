@@ -4,9 +4,7 @@
     {
         public int Id { get; set; }
 
-        public int EmployeeId { get; set; }
-        public Employee Employee { get; set; } = new Employee();
-        public HashSet<PhoneNumber> PhoneNumbers { get; set; } = new HashSet<PhoneNumber>();
+        public HashSet<PhoneNumber> PhoneNumbers { get; set; }
         public string Email { get; set; } = string.Empty;
     }
 }

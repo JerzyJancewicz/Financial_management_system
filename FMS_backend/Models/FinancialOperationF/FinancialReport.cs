@@ -8,7 +8,7 @@ namespace FMS_backend.Models.FinancialOperationF
         public double Turnover { get; set; }
 
         public int FinancialPersonId { get; set; }
-        public FinancialPerson FinancialPerson { get; set; } = new FinancialPerson();
+        public FinancialPerson FinancialPerson { get; set; }
         public override void CountIncome(DateTime dateFrom, DateTime dateTo)
         {
             if (dateFrom > DateTo || dateTo < DateFrom)
