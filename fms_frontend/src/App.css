@@ -1,5 +1,13 @@
 .App {
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
 }
 
 .App-logo {
@@ -15,13 +23,15 @@
 
 .App-header {
   background-color: #282c34;
-  min-height: 100vh;
+  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   font-size: calc(10px + 2vmin);
   color: white;
+  padding: 20px;
+  box-sizing: border-box;
 }
 
 .App-link {
@@ -37,21 +47,21 @@
   }
 }
 
-.h2-main{
+.h2-main {
   margin-bottom: 70px;
 }
+
 .container {
   background: #FFF2D7;
   padding: 20px;
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  width: 80%;
+  width: 90%;
   max-width: 800px;
   height: 90%;
   overflow-y: auto;
   text-align: center;
-  position: relative;
-  overflow-y: auto; /* Enable vertical scrolling */
+  margin: 20px auto;
 }
 
 h1 {
@@ -105,21 +115,19 @@ input, select {
   color: green;
 }
 
-.details-list-div{
+.details-list-div {
   background: #f9f9f9;
   padding: 10px;
   border: 1px solid #ddd;
   margin: 10px 0;
   border-radius: 4px;
   text-align: left;
-  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .details-list li button {
-  position: absolute;
-  right: 10px;
-  top: 50%;
-  transform: translateY(-50%);
   background: #3572EF;
   padding: 5px 10px;
 }
@@ -151,4 +159,26 @@ input, select {
 
 .home-button:hover {
   background: #5a6268;
+}
+
+@media (max-width: 768px) {
+  .container {
+    width: 95%;
+    height: auto;
+  }
+
+  .details-list-div {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .details-list li button {
+    position: static;
+    margin-top: 10px;
+  }
+
+  .back-button {
+    position: relative;
+    margin-bottom: 10px;
+  }
 }

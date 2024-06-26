@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "iG/FR61IDHbhiqPLwJQWbsk0HOEaffY5M8O/Xlrc0EJXqEX2hfkZO3Zw8QvfjDdO5ZYIm7hFCfmppuyQeJJTzw==",
+  "dgSpecHash": "RukoUZt96OBHlTtfJwAH609Z7TI3pHljZ3qQOiz7M2PNmsJCm0+rapDWech5JF2SeSMM2fw6xQtjVY0LtfJ2FQ==",
   "success": true,
-  "projectFilePath": "F:\\PROJEKTY\\WebApiProjects\\Financial_management_system\\FMS_backend\\FMS_backend.csproj",
+  "projectFilePath": "C:\\Users\\jance\\Financial_management_system\\FMS_backend\\FMS_backend.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\jance\\.nuget\\packages\\automapper\\13.0.1\\automapper.13.0.1.nupkg.sha512",
     "C:\\Users\\jance\\.nuget\\packages\\azure.core\\1.35.0\\azure.core.1.35.0.nupkg.sha512",
